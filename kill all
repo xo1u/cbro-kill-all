@@ -1,0 +1,96 @@
+-- Farewell Infortality.
+-- Version: 2.82
+-- Instances:
+local ScreenGui = Instance.new("ScreenGui")
+local OpenGUI = Instance.new("Frame")
+local Open = Instance.new("TextButton")
+local MainGUI = Instance.new("Frame")
+local TextLabel = Instance.new("TextLabel")
+local KillAll = Instance.new("TextButton")
+local Close = Instance.new("TextButton")
+--Properties:
+ScreenGui.Parent = game.CoreGui
+ScreenGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+ 
+OpenGUI.Name = "OpenGUI"
+OpenGUI.Parent = ScreenGui
+OpenGUI.BackgroundColor3 = Color3.new(1, 1, 1)
+OpenGUI.Position = UDim2.new(0, 0, 0.492024541, 0)
+OpenGUI.Size = UDim2.new(0, 100, 0, 28)
+ 
+Open.Name = "Open"
+Open.Parent = OpenGUI
+Open.BackgroundColor3 = Color3.new(0.333333, 1, 1)
+Open.Size = UDim2.new(0, 100, 0, 28)
+Open.Font = Enum.Font.SourceSans
+Open.Text = "Open"
+Open.TextColor3 = Color3.new(0, 0, 0)
+Open.TextSize = 14
+Open.MouseButton1Down:connect(function()
+MainGUI.Visible = true
+end)
+ 
+MainGUI.Name = "MainGUI"
+MainGUI.Parent = ScreenGui
+MainGUI.BackgroundColor3 = Color3.new(0, 1, 1)
+MainGUI.Position = UDim2.new(0.100769229, 0, 0.163992867, 0)
+MainGUI.Size = UDim2.new(0, 112, 0, 85)
+MainGUI.Draggable = true
+ 
+TextLabel.Parent = MainGUI
+TextLabel.BackgroundColor3 = Color3.new(0.666667, 1, 1)
+TextLabel.Position = UDim2.new(0, 0, 0.0941176564, 0)
+TextLabel.Size = UDim2.new(0, 112, 0, 28)
+TextLabel.Font = Enum.Font.SourceSans
+TextLabel.Text = "CBRO Kill all"
+TextLabel.TextColor3 = Color3.new(0, 0, 0)
+TextLabel.TextSize = 14
+ 
+KillAll.Name = "Kill All"
+KillAll.Parent = MainGUI
+KillAll.BackgroundColor3 = Color3.new(0.666667, 1, 1)
+KillAll.Position = UDim2.new(0, 0, 0.505882382, 0)
+KillAll.Size = UDim2.new(0, 112, 0, 35)
+KillAll.Font = Enum.Font.SourceSans
+KillAll.Text = "Kill All"
+KillAll.TextColor3 = Color3.new(0, 0, 0)
+KillAll.TextSize = 14
+KillAll.MouseButton1Down:connect(function()
+local Remote = game.ReplicatedStorage.Events['HitPart']
+ 
+for _,v in pairs(game:GetService"Players":GetChildren()) do
+if v.Team ~= game.Players.LocalPlayer.Team then
+if v.Character and v.Character.Head then
+local Arguments = {
+[1] = workspace[v.Name].Head,
+[2] = workspace[v.Name].Head.Position,
+[3] = workspace[game.Players.LocalPlayer.Name].EquippedTool.Value,
+[4] = math.rad(1,100000),
+[5] = workspace[game.Players.LocalPlayer.Name].Gun,
+[8] = 8, --damage multiplier
+[9] = false,
+[10] = false,
+[11] = Vector3.new(),
+[12] = math.rad(1,100000),
+[13] = Vector3.new()
+}
+ 
+Remote:FireServer(unpack(Arguments))
+end
+end
+end
+end)
+ 
+Close.Name = "Close"
+Close.Parent = MainGUI
+Close.BackgroundColor3 = Color3.new(0.333333, 1, 1)
+Close.Position = UDim2.new(-1.16964281, 0, 1.78145063, 0)
+Close.Size = UDim2.new(0, 100, 0, 23)
+Close.Font = Enum.Font.SourceSans
+Close.Text = "Close"
+Close.TextColor3 = Color3.new(0, 0, 0)
+Close.TextSize = 14
+Close.MouseButton1Down:connect(function()
+MainGUI.Visible = false
+end)
+-- Scripts:
